@@ -1,0 +1,445 @@
+/* =========================================================
+   StudyForge — Responsive & Adaptive Layout System
+   
+   Breakpoints:
+     xs  < 480px     — small phones (iPhone SE, Galaxy S)
+     sm  480–639px   — large phones / landscape
+     md  640–899px   — tablets portrait (iPad Mini, Galaxy Tab)
+     lg  900–1199px  — tablets landscape / small laptops
+     xl  ≥ 1200px    — desktops & wide screens
+     2xl ≥ 1440px    — large monitors
+   ========================================================= */
+
+/* ── GLOBAL TOUCH & PERFORMANCE ─────────────────────────── */
+* {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Prevent iOS text-size-adjust on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Prevent iOS input zoom (needs 16px+ font-size) */
+input, select, textarea {
+  font-size: max(16px, 0.9rem) !important;
+}
+
+/* Safe area insets for notched phones (iPhone X+, Android notch) */
+body {
+  padding-left:   env(safe-area-inset-left);
+  padding-right:  env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Minimum touch target size: 44×44px (Apple HIG / WCAG) */
+button, .nav-item, .filter-pill, .task-btn, .task-check,
+.feat-chip, .dur-btn, .auth-close, .theme-toggle {
+  min-height: 44px;
+  min-width:  44px;
+}
+
+/* Smooth scrolling & scroll snap for carousels */
+.filter-pills { scroll-snap-type: x mandatory; }
+.filter-pill  { scroll-snap-align: start; }
+
+/* ══════════════════════════════════════════════════════════
+   ▸ XL  ≥ 1200px — Desktops
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 1200px) {
+  .features-grid { grid-template-columns: repeat(3, 1fr); }
+  .overview-grid { grid-template-columns: repeat(4, 1fr); }
+
+  /* Wider sidebar for large screens */
+  .sidebar { width: 280px; }
+  .main-content { margin-left: 280px; }
+
+  /* Expand page content padding */
+  .page-content { padding: 32px 48px 80px; }
+  .topbar       { padding: 18px 48px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ 2XL ≥ 1440px — Large monitors
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 1440px) {
+  .hero-inner    { max-width: 900px; }
+  .page-content  { max-width: 1200px; margin: 0 auto; padding: 36px 40px 80px; }
+  .features-section { max-width: 1260px; }
+  .stats-row     { max-width: 800px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ LG  900–1199px — Tablets Landscape / Small Laptops
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 1199px) and (min-width: 900px) {
+  .overview-grid  { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .features-grid  { grid-template-columns: repeat(2, 1fr); }
+  .form-3col      { grid-template-columns: 1fr 1fr; }
+  .settings-grid  { grid-template-columns: 1fr 1fr; }
+  .page-content   { padding: 24px 28px 60px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ MD  640–899px — Tablets Portrait
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 899px) {
+  /* ── Auth nav ── */
+  .auth-nav     { padding: 12px 20px; }
+  .nav-logo-text { font-size: 1rem; }
+
+  /* ── Hero ── */
+  .hero         { padding: 110px 20px 70px; }
+  .hero-title   { letter-spacing: -1.5px; }
+  .hero-sub     { font-size: 1rem; }
+  .hero-cta     { flex-direction: column; align-items: center; gap: 10px; }
+  .hero-cta .btn { width: 100%; max-width: 320px; }
+  .hero-features { gap: 8px; }
+
+  /* ── Stats row ── */
+  .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .stat-block { padding: 22px 12px; }
+  .stat-block-num { font-size: 2rem; }
+
+  /* ── Features ── */
+  .features-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .features-section { padding: 60px 20px; }
+
+  /* ── Dashboard sidebar ── */
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+    z-index: 500;
+    box-shadow: none;
+    transition: transform var(--t-slow), box-shadow var(--t-slow);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 20px 0 60px rgba(0,0,0,0.55);
+  }
+  .main-content { margin-left: 0; }
+
+  /* ── Sidebar overlay backdrop ── */
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 4, 18, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 499;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t-slow);
+  }
+  .sidebar-backdrop.visible { opacity: 1; pointer-events: all; }
+
+  /* ── Topbar ── */
+  .topbar { padding: 12px 18px; }
+  .topbar-title { font-size: 1.1rem; }
+  .mobile-menu-btn { display: flex; }
+  .topbar-right { gap: 8px; }
+
+  /* ── Page content ── */
+  .page-content { padding: 18px 18px 80px; }
+
+  /* ── XP Banner ── */
+  .xp-banner { flex-wrap: wrap; gap: 14px; padding: 18px 18px; }
+  .xp-details { order: 2; width: 100%; }
+  .streak-badge { order: 3; }
+  .xp-meta { flex-wrap: wrap; gap: 8px; }
+
+  /* ── Overview grid ── */
+  .overview-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .ov-num        { font-size: 1.7rem; }
+
+  /* ── Form columns ── */
+  .form-2col, .form-3col { grid-template-columns: 1fr; }
+  .col-span-2, .col-span-3 { grid-column: span 1; }
+
+  /* ── Filter bar ── */
+  .filter-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+  .filter-pills {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .filter-pills::-webkit-scrollbar { display: none; }
+  .filter-pill { flex-shrink: 0; }
+  .search-bar  { width: 100%; }
+
+  /* ── Settings ── */
+  .settings-grid { grid-template-columns: 1fr; }
+
+  /* ── Focus mode ring ── */
+  .ring-wrap { width: 180px; height: 180px; }
+  .ring-time { font-size: 2.4rem; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ SM  480–639px — Large Phones / Landscape
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 639px) {
+  /* ── Hero ── */
+  .hero-title   { letter-spacing: -1px; }
+  .hero-badge   { font-size: 0.75rem; padding: 6px 14px; }
+
+  /* ── Stats row ── */
+  .stats-row { grid-template-columns: 1fr; max-width: 360px; }
+
+  /* ── Features ── */
+  .features-grid { grid-template-columns: 1fr; }
+  .feature-card  { padding: 22px 20px; }
+
+  /* ── Auth modal ── */
+  .auth-card { border-radius: var(--r-lg); padding: 24px 18px; }
+  .auth-title { font-size: 1.4rem; }
+
+  /* ── Overview grid ── */
+  .overview-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .ov-card { padding: 16px 14px; }
+  .ov-num  { font-size: 1.5rem; }
+  .ov-icon { width: 36px; height: 36px; font-size: 16px; margin-bottom: 10px; }
+
+  /* ── XP Banner ── */
+  .xp-banner { padding: 16px; gap: 12px; }
+  .streak-badge { padding: 10px 14px; }
+  .streak-num { font-size: 1.2rem; }
+
+  /* ── Task cards ── */
+  .task-card { padding: 14px 14px; }
+  .task-title { font-size: 0.9rem; }
+  .task-datetime { font-size: 0.73rem; }
+  .task-btn { width: 30px; height: 30px; font-size: 13px; }
+
+  /* ── Focus mode ── */
+  .focus-modal { padding: 0 12px; }
+  .ring-wrap   { width: 160px; height: 160px; }
+  .ring-time   { font-size: 2.1rem; }
+  .focus-dur-btns { gap: 6px; }
+  .dur-btn { padding: 6px 14px; font-size: 0.78rem; }
+  .focus-task-name { font-size: 1.1rem; }
+
+  /* ── Add task panel ── */
+  .add-task-panel { padding: 18px 14px; }
+  .panel-title { font-size: 0.92rem; }
+
+  /* ── Toast ── */
+  #toast-container { bottom: calc(16px + env(safe-area-inset-bottom)); width: 92%; }
+  .toast { font-size: 0.82rem; padding: 11px 16px; white-space: normal; text-align: center; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ XS  < 480px — Small Phones (iPhone SE etc.)
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 479px) {
+  /* ── Auth nav ── */
+  .auth-nav { padding: 10px 14px; }
+  .nav-actions .btn-secondary { display: none; } /* hide "Log In" btn, keep CTA + theme */
+
+  /* ── Hero ── */
+  .hero { padding: 90px 14px 60px; }
+  .hero-title { font-size: clamp(2rem, 9vw, 2.8rem); letter-spacing: -0.8px; }
+  .hero-sub   { font-size: 0.92rem; margin-bottom: 32px; }
+  .hero-features { gap: 6px; }
+  .feat-chip  { font-size: 0.76rem; padding: 7px 12px; }
+
+  /* ── Section titles ── */
+  .section-title { font-size: clamp(1.6rem, 6vw, 2rem); }
+  .section-sub   { font-size: 0.9rem; }
+
+  /* ── Auth modal — near full-screen on tiny phones ── */
+  .auth-overlay { padding: 10px 10px 0; align-items: flex-end; }
+  .auth-card {
+    border-radius: var(--r-xl) var(--r-xl) 0 0;
+    max-width: 100%;
+    padding: 24px 16px calc(24px + env(safe-area-inset-bottom));
+    max-height: 94vh;
+    overflow-y: auto;
+  }
+  .auth-header  { margin-bottom: 18px; }
+  .auth-title   { font-size: 1.3rem; }
+
+  /* ── Topbar ── */
+  .topbar { padding: 10px 14px; }
+  .topbar-greeting { display: none; }
+  .topbar-title { font-size: 1rem; }
+  .topbar-right .text-muted { display: none; }
+
+  /* ── Page content ── */
+  .page-content { padding: 14px 12px calc(80px + env(safe-area-inset-bottom)); }
+
+  /* ── XP Banner ── */
+  .xp-banner  { flex-direction: column; align-items: stretch; gap: 12px; padding: 14px; }
+  .xp-meta    { display: none; } /* too cramped on XS */
+  .streak-badge { align-self: flex-start; }
+
+  /* ── Overview cards ── */
+  .overview-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 18px; }
+  .ov-card { padding: 14px 12px; border-radius: var(--r-md); }
+  .ov-num  { font-size: 1.4rem; }
+  .ov-icon { margin-bottom: 8px; }
+
+  /* ── Task form ── */
+  .add-task-panel { padding: 14px 12px; border-radius: var(--r-md); }
+
+  /* ── Filter pills — scrollable row ── */
+  .filter-pills { padding: 3px; }
+  .filter-pill  { padding: 6px 12px; font-size: 0.78rem; }
+
+  /* ── Task cards ── */
+  .task-card    { padding: 12px; border-radius: var(--r-md); }
+  .task-actions { flex-direction: column; gap: 4px; }
+  .task-check   { width: 22px; height: 22px; border-radius: 7px; }
+
+  /* ── Focus mode — compact ── */
+  .focus-modal     { padding: 0 8px; }
+  .focus-dur-btns  { gap: 4px; }
+  .ring-wrap       { width: 140px; height: 140px; }
+  .ring-time       { font-size: 1.8rem; }
+  .ring-phase      { font-size: 0.65rem; }
+  .focus-btns      { gap: 8px; }
+  .focus-btns .btn { padding: 10px 20px; font-size: 0.85rem; }
+
+  /* ── Settings ── */
+  .settings-card { padding: 18px 14px; }
+
+  /* ── Level ring in XP banner ── */
+  .level-ring { width: 52px; height: 52px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ LANDSCAPE phones (short viewport, wide)
+   ══════════════════════════════════════════════════════════ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero     { padding: 80px 24px 40px; }
+  .hero-title { font-size: clamp(1.8rem, 5vw, 2.5rem); margin-bottom: 16px; }
+  .hero-sub   { margin-bottom: 24px; }
+  .hero-cta   { flex-direction: row; }
+
+  /* Focus mode: shrink ring so it fits without scrolling */
+  .focus-modal  { display: flex; align-items: center; gap: 32px; text-align: left; max-width: 700px; }
+  .ring-wrap    { width: 140px; height: 140px; flex-shrink: 0; }
+  .focus-content { flex: 1; }
+  .focus-tag, .focus-task-name, .focus-dur-btns, .focus-btns { margin-bottom: 10px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ PRINT styles — clean printable task list
+   ══════════════════════════════════════════════════════════ */
+@media print {
+  .sidebar, .topbar, .add-task-panel, .filter-bar,
+  .xp-banner, .overview-grid, .task-btn, .task-actions,
+  .theme-toggle, .focus-overlay, #toast-container { display: none !important; }
+
+  body     { background: white; color: black; }
+  .glass, .glass-2 { background: white; border: 1px solid #ddd; box-shadow: none; }
+  .task-card { break-inside: avoid; }
+  .main-content { margin: 0; }
+  .page-content { padding: 20px; }
+  .task-title { color: black; font-size: 12pt; }
+  .task-datetime { color: #555; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ BOTTOM NAV BAR (mobile) — fixed nav at bottom of screen
+   ══════════════════════════════════════════════════════════ */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  z-index: 300;
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(24px);
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  transition: background var(--t-slow), border-color var(--t-slow);
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 16px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: var(--t-fast);
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  min-width: 60px;
+  position: relative;
+}
+
+.bottom-nav-item .bn-icon { font-size: 20px; line-height: 1; }
+
+.bottom-nav-item.active { color: var(--accent-light); }
+.bottom-nav-item.active .bn-icon { filter: drop-shadow(0 0 6px var(--accent)); }
+
+.bottom-nav-item .bn-badge {
+  position: absolute;
+  top: 2px; right: 10px;
+  background: var(--high);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 800;
+  min-width: 16px; height: 16px;
+  border-radius: 99px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 4px;
+}
+
+@media (max-width: 899px) {
+  .bottom-nav { display: flex; }
+  /* Give page content room above bottom nav */
+  .page-content { padding-bottom: calc(90px + env(safe-area-inset-bottom)); }
+  /* Hide sidebar nav on mobile since we have bottom nav */
+  .sidebar .nav-section:first-of-type { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ SWIPE-CLOSE HINT on sidebar
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 899px) {
+  .sidebar::after {
+    content: '← Swipe to close';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    opacity: 0.5;
+    white-space: nowrap;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ▸ HIGH-CONTRAST / REDUCED MOTION
+   ══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .bg-mesh::before { animation: none; }
+  .xp-bar-fill::after { animation: none; }
+}
+
+@media (prefers-contrast: high) {
+  .glass, .glass-2 { border-width: 2px; }
+  .task-card.pri-high   { border: 2px solid var(--high); }
+  .task-card.pri-medium { border: 2px solid var(--medium); }
+  .form-input:focus { outline: 3px solid var(--accent); }
+}

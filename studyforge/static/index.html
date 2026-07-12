@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<script>
+  // Prevent flash of wrong theme
+  (function(){
+    var t=localStorage.getItem('sf_theme');
+    if(t){document.documentElement.setAttribute('data-theme',t);}
+    else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.setAttribute('data-theme','light');}
+  })();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyForge — Smart Study Planner & Focus Companion</title>
+  <meta name="description" content="StudyForge is a professional study planner with Focus Mode, XP leveling, smart reminders, and beautiful design. Turn your goals into achievements.">
+  <meta name="keywords" content="study planner, todo list, focus mode, pomodoro, student productivity">
+  <meta property="og:title" content="StudyForge — Smart Study Planner">
+  <meta property="og:description" content="Professional study planner with Focus Mode, XP levels, and smart reminders.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/auth.css">
+  <link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+<body class="auth-page">
+<div class="bg-mesh"></div>
+
+<!-- TOAST -->
+<div id="toast-container"></div>
+
+<!-- ── NAVBAR ──────────────────────────────────────────── -->
+<nav class="auth-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">⚡</div>
+    <span class="nav-logo-text gradient-text">StudyForge</span>
+  </div>
+  <div class="nav-actions">
+    <button class="theme-toggle" onclick="Theme.toggle()" title="Toggle theme" aria-label="Toggle dark/light mode">
+      <span class="icon-sun">☀️</span>
+      <span class="icon-moon">🌙</span>
+    </button>
+    <button class="btn btn-secondary btn-sm" onclick="openLogin()">Log In</button>
+    <button class="btn btn-primary btn-sm" onclick="openRegister()">Get Started Free</button>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="pulse-dot"></span> Now with AI-powered study insights</div>
+
+    <h1 class="hero-title">
+      <span class="line-1">Study smarter,</span>
+      <span class="line-2">achieve more.</span>
+    </h1>
+
+    <p class="hero-sub">
+      The professional study planner built for students who are serious about results.
+      Track tasks, focus deeply, and level up your academic game.
+    </p>
+
+    <div class="hero-cta">
+      <button class="btn btn-primary btn-lg" onclick="openRegister()">
+        ⚡ Start For Free
+      </button>
+      <button class="btn btn-secondary btn-lg" onclick="openLogin()">
+        Log In
+      </button>
+    </div>
+
+    <div class="hero-features">
+      <div class="feat-chip"><span class="feat-chip-icon">🎯</span> Focus Mode</div>
+      <div class="feat-chip"><span class="feat-chip-icon">⚔️</span> XP & Leveling</div>
+      <div class="feat-chip"><span class="feat-chip-icon">🔐</span> Secure Auth</div>
+      <div class="feat-chip"><span class="feat-chip-icon">📊</span> Analytics</div>
+      <div class="feat-chip"><span class="feat-chip-icon">🔔</span> Smart Reminders</div>
+      <div class="feat-chip"><span class="feat-chip-icon">🌙</span> Dark Mode</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS STRIP ──────────────────────────────────────── -->
+<div class="stats-row" style="position:relative;z-index:1;padding:0 24px;margin:0 auto 60px;max-width:700px;">
+  <div class="stat-block">
+    <div class="stat-block-num" id="heroStat1">0</div>
+    <div class="stat-block-label">Tasks Completed</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-block-num" id="heroStat2">0</div>
+    <div class="stat-block-label">% Average Score Boost</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-block-num" id="heroStat3">0</div>
+    <div class="stat-block-label">Focus Hours Logged</div>
+  </div>
+</div>
+
+<!-- ── FEATURES ─────────────────────────────────────────── -->
+<section class="features-section">
+  <div class="section-header">
+    <div class="section-label">Why StudyForge?</div>
+    <h2 class="section-title">Everything you need<br>to ace your studies</h2>
+    <p class="section-sub">Built by students, for students — with a design that keeps you motivated.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card glass">
+      <div class="feature-icon" style="background:rgba(155,89,255,0.15)">🎯</div>
+      <div class="feature-title">Focus Mode</div>
+      <div class="feature-desc">A distraction-free Pomodoro timer that locks in on your current task. Watch the glowing purple ring count down as you build deep work habits.</div>
+    </div>
+
+    <div class="feature-card glass">
+      <div class="feature-icon" style="background:rgba(244,114,182,0.15)">⚔️</div>
+      <div class="feature-title">XP & Level System</div>
+      <div class="feature-desc">Gamified productivity — complete tasks to earn XP, level up, and maintain daily streaks. Turn studying into a purple-powered adventure.</div>
+    </div>
+
+    <div class="feature-card glass">
+      <div class="feature-icon" style="background:rgba(192,132,252,0.15)">🔐</div>
+      <div class="feature-title">Secure Authentication</div>
+      <div class="feature-desc">Your data is protected with JWT tokens, bcrypt password hashing, and per-user data isolation. Privacy by design.</div>
+    </div>
+
+    <div class="feature-card glass">
+      <div class="feature-icon" style="background:rgba(232,121,249,0.15)">📊</div>
+      <div class="feature-title">Smart Analytics</div>
+      <div class="feature-desc">Track your completion rate, focus time, overdue tasks, and daily streaks with beautiful visual statistics.</div>
+    </div>
+
+    <div class="feature-card glass">
+      <div class="feature-icon" style="background:rgba(251,113,133,0.15)">🔔</div>
+      <div class="feature-title">Smart Reminders</div>
+      <div class="feature-desc">Never miss a deadline. Get browser notifications 5 minutes before tasks are due, with overdue warnings that pulse urgently.</div>
+    </div>
+
+    <div class="feature-card glass">
+      <div class="feature-icon" style="background:rgba(167,139,250,0.15)">✨</div>
+      <div class="feature-title">Dark &amp; Light Mode</div>
+      <div class="feature-desc">Seamlessly switch between a deep purple dark mode and a soft lavender light mode — your eyes will thank you.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer class="auth-footer">
+  <p>© 2024 StudyForge. Built with ❤️ for ambitious students.
+  &nbsp;·&nbsp; <a href="#" onclick="openLogin()">Login</a>
+  &nbsp;·&nbsp; <a href="#" onclick="openRegister()">Register</a>
+  </p>
+</footer>
+
+<!-- ── LOGIN MODAL ──────────────────────────────────────── -->
+<div class="auth-overlay" id="loginOverlay">
+  <div class="auth-card glass-2">
+    <button class="auth-close" onclick="closeModals()" title="Close">✕</button>
+
+    <div class="auth-header">
+      <div style="font-size:2rem;margin-bottom:8px">👋</div>
+      <h2 class="auth-title">Welcome back</h2>
+      <p class="auth-subtitle">Log in to your StudyForge account</p>
+    </div>
+
+    <form class="auth-form" id="loginForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="loginEmail">Email Address</label>
+        <input class="form-input" type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" required>
+        <span class="field-error" id="loginEmailErr"></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="loginPw">Password</label>
+        <input class="form-input" type="password" id="loginPw" placeholder="Your password" autocomplete="current-password" required>
+        <span class="field-error" id="loginPwErr"></span>
+      </div>
+
+      <div class="remember-row">
+        <label class="checkbox-wrap">
+          <input type="checkbox" id="rememberMe">
+          <span class="checkbox-label">Remember me for 7 days</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">
+        <span class="btn-spinner"></span>
+        <span class="btn-text">Log In →</span>
+      </button>
+    </form>
+
+    <div class="auth-switch">
+      Don't have an account? <a onclick="openRegister()">Create one free</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── REGISTER MODAL ───────────────────────────────────── -->
+<div class="auth-overlay" id="registerOverlay">
+  <div class="auth-card glass-2">
+    <button class="auth-close" onclick="closeModals()" title="Close">✕</button>
+
+    <div class="auth-header">
+      <div style="font-size:2rem;margin-bottom:8px">🚀</div>
+      <h2 class="auth-title">Create account</h2>
+      <p class="auth-subtitle">Join thousands of students leveling up</p>
+    </div>
+
+    <form class="auth-form" id="regForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="regName">Full Name</label>
+        <input class="form-input" type="text" id="regName" placeholder="Anagha Sharma" autocomplete="name" required>
+        <span class="field-error" id="regNameErr"></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="regEmail">Email Address</label>
+        <input class="form-input" type="email" id="regEmail" placeholder="you@example.com" autocomplete="email" required>
+        <span class="field-error" id="regEmailErr"></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="regPw">Password</label>
+        <input class="form-input" type="password" id="regPw" placeholder="Minimum 6 characters" autocomplete="new-password" required>
+        <div class="pw-strength-bar"><div class="pw-strength-fill" id="pwStrengthFill"></div></div>
+        <span class="pw-hint" id="pwStrengthHint"></span>
+        <span class="field-error" id="regPwErr"></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="regPwConfirm">Confirm Password</label>
+        <input class="form-input" type="password" id="regPwConfirm" placeholder="Repeat your password" autocomplete="new-password" required>
+        <span class="field-error" id="regPwConfirmErr"></span>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">
+        <span class="btn-spinner"></span>
+        <span class="btn-text">⚡ Create Free Account</span>
+      </button>
+    </form>
+
+    <div class="auth-switch">
+      Already have an account? <a onclick="openLogin()">Log in</a>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<!-- StudyForge scripts -->
+<script src="/static/js/firebase.js"></script>
+<script src="/static/js/api.js"></script>
+<script src="/static/js/ui.js"></script>
+<script src="/static/js/auth.js"></script>
+</body>
+</html>
