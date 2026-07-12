@@ -14,11 +14,10 @@ StudyForge isn't just a checklist; it's a progression system for your real life:
 
 ## 🛠 Tech Stack
 
-This project uses a hybrid architecture blending a Python backend with a reactive JS frontend:
-- **Backend:** Python, Flask (serves the static PWA and configures the environment)
-- **Database & Auth:** Firebase Firestore & Firebase Authentication
+This project uses a serverless architecture where the client communicates directly with Firebase:
+- **Database & Auth:** Firebase Firestore & Firebase Authentication (Client-side)
 - **Frontend:** Vanilla HTML/CSS/JavaScript (with custom API wrappers)
-- **Deployment:** Vercel (serverless configuration)
+- **Deployment:** Vercel (Static / Serverless config)
 
 ## 💻 Getting Started Locally
 
@@ -36,12 +35,12 @@ Want to spin up your own forge?
    ```
 
 3. **Set up Firebase:**
-   Create a `.env` file in the `studyforge` directory and add your Firebase credentials.
+   Create a Firebase project, copy your web config, and place it in the `studyforge/static/js/app.js` file (or wherever initialized).
 
-4. **Start the server:**
-   You can either run the `START_STUDYFORGE.bat` script (on Windows) or manually run:
+4. **Start the local server:**
+   You can serve the `studyforge/static` directory using any static file server:
    ```bash
-   python studyforge/app.py
+   npx serve studyforge/static
    ```
 
 ## 🌍 Deployment
