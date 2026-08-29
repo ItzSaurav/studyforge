@@ -1,51 +1,39 @@
-# 🛡️ StudyForge
+# StudyForge
 
-> **Gamify your productivity and forge better study habits.**
+A gamified task and study tracker web application designed to reinforce consistent study habits through XP progression, leveling mechanics, and streak tracking.
 
-StudyForge takes your boring to-do lists and turns them into an RPG. Complete tasks, earn XP, level up, and maintain your daily streak. It's a gamified task management app built to keep students motivated.
+## Features
 
-## 🚀 What It Does
+- **XP & Level Progression**: Completing study sessions and tasks awards experience points to level up your profile.
+- **Streak Tracking**: Daily activity logging to encourage consistent study habits.
+- **Task Management**: Categorized task lists with priority flags and completion timestamps.
+- **Cloud Sync**: User authentication and real-time state persistence backed by Firebase Authentication and Cloud Firestore.
+- **Responsive PWA**: Offline-ready progressive web app layout built with vanilla JavaScript, HTML5, and CSS3.
 
-StudyForge isn't just a checklist; it's a progression system for your real life:
-- **XP & Leveling:** Every completed task grants XP. Hit the threshold to level up.
-- **Streak System:** Consistency is rewarded. Log in and complete tasks daily to keep the fire burning.
-- **Secure Sync:** Your stats and tasks are safely stored and synced across devices using Firebase.
-- **Clean Dashboard:** A modern, distraction-free UI to focus on what matters.
+## Tech Stack
 
-## 🛠 Tech Stack
+- **Frontend**: Vanilla JavaScript (ES6+), HTML5, CSS3 Custom Properties
+- **Backend Services**: Firebase Authentication, Cloud Firestore
+- **Deployment**: Vercel
 
-This project uses a serverless architecture where the client communicates directly with Firebase:
-- **Database & Auth:** Firebase Firestore & Firebase Authentication (Client-side)
-- **Frontend:** Vanilla HTML/CSS/JavaScript (with custom API wrappers)
-- **Deployment:** Vercel (Static / Serverless config)
+## Local Setup
 
-## 💻 Getting Started Locally
-
-Want to spin up your own forge?
-
-1. **Clone the repo:**
+1. Clone the repository:
    ```bash
    git clone https://github.com/ItzSaurav/studyforge.git
    cd studyforge
    ```
 
-2. **Install the dependencies:**
+2. Configure Firebase:
+   Update `studyforge/static/js/firebase.js` with your Firebase project configuration credentials.
+
+3. Serve locally:
    ```bash
-   pip install -r studyforge/requirements.txt
+   python -m http.server 3000 --directory studyforge/static
    ```
 
-3. **Set up Firebase:**
-   Create a Firebase project, copy your web config, and place it in the `studyforge/static/js/app.js` file (or wherever initialized).
+4. Open `http://localhost:3000` in your browser.
 
-4. **Start the local server:**
-   You can serve the `studyforge/static` directory using any static file server:
-   ```bash
-   npx serve studyforge/static
-   ```
+## License
 
-## 🌍 Deployment
-
-StudyForge is configured for Vercel. The included `vercel.json` ensures that Flask routes correctly handle the static assets and SPA logic in a serverless environment.
-
----
-*Built by [Saurav](https://github.com/ItzSaurav) – Backend Developer & Automation Enthusiast.*
+MIT License.
