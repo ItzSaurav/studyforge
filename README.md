@@ -1,8 +1,43 @@
 # StudyForge
 
+[![CI](https://github.com/ItzSaurav/studyforge/actions/workflows/ci.yml/badge.svg)](https://github.com/ItzSaurav/studyforge/actions/workflows/ci.yml)
+
 A gamified task and study tracker web application built to make daily study sessions more engaging through XP progression, levels, and streak counters.
 
 Live Demo: [studyforge-pearl.vercel.app](https://studyforge-pearl.vercel.app/)
+
+---
+
+## Architecture and Data Flow
+
+```mermaid
+flowchart TD
+    subgraph UI ["Client Interface"]
+        AUTH_UI["Landing & Auth (index.html)"]
+        DASH_UI["Task Dashboard (dashboard.html)"]
+        FOCUS_UI["Pomodoro Focus Timer"]
+    end
+
+    subgraph Engine ["Frontend State & Engine"]
+        AUTH_JS["auth.js (Session State)"]
+        APP_JS["app.js (Task Engine & XP Calculation)"]
+        UI_JS["ui.js (Reactive DOM Updates)"]
+        API_JS["api.js (Firestore Data Adapters)"]
+    end
+
+    subgraph Backend ["Backend & Cloud Services"]
+        FLASK["Flask Server (app.py Routing)"]
+        FIRE_AUTH["Firebase Authentication"]
+        FIRESTORE["Cloud Firestore (Real-time DB)"]
+    end
+
+    AUTH_UI --> AUTH_JS --> FIRE_AUTH
+    DASH_UI --> APP_JS
+    FOCUS_UI --> APP_JS
+    APP_JS --> API_JS --> FIRESTORE
+    APP_JS --> UI_JS --> DASH_UI
+    FLASK -.-> UI
+```
 
 ---
 

@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate Backend and Frontend Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Verify Backend Compilation
+        run: |
+          pip install -r studyforge/requirements.txt
+          python -m py_compile studyforge/app.py studyforge/config.py
+
+      - name: Verify Frontend JavaScript Syntax
+        run: |
+          node --check studyforge/static/js/app.js
+          node --check studyforge/static/js/auth.js
+          node --check studyforge/static/js/ui.js
+          node --check studyforge/static/js/api.js
+          node --check studyforge/static/js/firebase.js
